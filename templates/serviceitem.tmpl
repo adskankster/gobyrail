@@ -1,0 +1,21 @@
+{{define "ServiceItem"}}
+--Service--
+{{.Crs}} {{.Operator}} ({{.OperatorCode}}) - {{.ServiceID}}
+{{with .Origin.Location}}
+	From: {{template "Location" .}}
+{{- end }}
+{{with .Via}}
+	Via: {{.}}
+{{- end }}
+{{with .Destination.Location}}
+	To: {{template "Location" .}}
+{{- end }}
+Arrival: {{.STA}} ({{.ETA}})
+Departure: {{.STD}} ({{.ETD}})
+Platform: {{.Platform}}
+{{with .DelayReason}}Delayed: {{.}} {{- end }}
+{{if .IsCancelled}}Cancelled: {{.CancelReason}} {{- end }}
+{{range .AdhocAlerts}}Notice: {{.}} {{- end }}
+{{with .Length}}Length: {{.}} cars {{- end }}
+-----------
+{{- end }}

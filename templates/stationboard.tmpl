@@ -1,0 +1,8 @@
+{{define "StationBoard"}}
+
+=== Station Board ===
+{{.GeneratedAt}}: {{.LocationName}} ({{.Crs}})
+{{range .NrccMessages}}{{.}}{{- end }}
+{{/* Need to filter platform if .PlatformAvailable is false */}}
+{{range .TrainServices}} {{template "ServiceItem" .}} {{- end }}
+{{- end }}

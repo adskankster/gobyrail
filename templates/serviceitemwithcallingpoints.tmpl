@@ -1,0 +1,7 @@
+{{define "ServiceItemWithCallingPoints"}}
+{{template "ServiceItem"}}
+{{with .PreviousCallingPoints}}Previous Stops:{{end}}
+{{range .PreviousCallingPoints}}{{template "CallingPoint"}}{{end}}
+{{with .SubsequentCallingPoints}}Previous Stops:{{end}}
+{{range .SubsequentCallingPoints}}{{template "CallingPoint"}}{{end}}
+{{end}}
