@@ -94,6 +94,32 @@ func init() {
 	depCmd.LocalFlags().StringVarP(&cvs2, "to", "t", "", "Show only services to this station")
 }
 
+func getArrServices() error {
+	dbreq, err := requests.BuildGetDepartureBoardRequest(
+		10, "SHF", "", "to", 0, 120,
+	)
+	if err != nil {
+		return fmt.Errorf("Error getting request: %v", err)
+	}
+
+	b, err := network.MakeRequest("GetDepartureBoard", dbreq)
+	if err != nil {
+		return fmt.Errorf("Error building xml: %v", err)
+	}
+
+	// TODO this is from departure, and needs to be changed for arr
+	// This is request dependant
+	rep := replies.GetStationBoardResult{Template: "StationBoard"}
+
+	// This is generic
+	err = replies.HandleReply(b, &rep)
+	if err != nil {
+		return fmt.Errorf("Error handling reply xml: %v", err)
+	}
+
+	return nil
+}
+
 //
 func getDepServices() error {
 	dbreq, err := requests.BuildGetDepartureBoardRequest(
